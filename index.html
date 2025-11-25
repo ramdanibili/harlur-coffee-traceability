@@ -3,94 +3,321 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harlur Coffee - Sistem Traceability Kopi Standar ISO</title>
+    <title>Harlur Coffee - Premium Coffee Experience</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2D5016;
-            --secondary: #8B4513;
-            --accent: #D4AF37;
-            --light: #F8F5F0;
-            --dark: #1A2A1A;
+            --primary: #8B4513;
+            --secondary: #D2691E;
+            --accent: #A0522D;
+            --light: #F5F5DC;
+            --dark: #3E2723;
             --text: #333333;
+            --iso-primary: #2D5016;
+            --iso-accent: #D4AF37;
             --white: #FFFFFF;
             --gray: #6B7280;
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         body {
-            background-color: var(--light);
+            background-color: #f9f9f9;
             color: var(--text);
             line-height: 1.6;
         }
-
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
         /* Header Styles */
         header {
-            background: var(--white);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
+            background: linear-gradient(rgba(62, 39, 35, 0.9), rgba(62, 39, 35, 0.8)), url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 20px 0;
+            position: relative;
         }
-
+        
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 5%;
-            max-width: 1400px;
-            margin: 0 auto;
+            padding: 0 20px;
         }
-
+        
         .logo {
+            font-size: 28px;
+            font-weight: bold;
             display: flex;
             align-items: center;
-            gap: 12px;
         }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--primary);
-            border-radius: 8px;
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 3px;
+            background-color: var(--secondary);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Products Section */
+        .products {
+            background-color: var(--light);
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .product-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-info h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .product-info p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .price {
+            font-weight: bold;
+            color: var(--secondary);
+            font-size: 18px;
+        }
+        
+        /* Locations Section */
+        .location-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .location-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .location-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .location-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        /* Traceability Section */
+        .traceability {
+            background-color: var(--light);
+        }
+        
+        .traceability-steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 20px;
+            margin: 10px;
+        }
+        
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: bold;
+            margin: 0 auto 20px;
+            font-size: 30px;
         }
-
-        .logo-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+        
+        /* ISO Traceability System */
+        .iso-traceability {
+            background: linear-gradient(135deg, var(--iso-primary) 0%, var(--dark) 100%);
             color: var(--white);
-            padding: 8rem 1rem 4rem;
+            padding: 4rem 1rem;
             text-align: center;
         }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
+        
+        .iso-traceability .section-title h2 {
+            color: white;
         }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+        
+        .iso-traceability .section-title h2:after {
+            background-color: var(--iso-accent);
         }
-
+        
         .trace-input-container {
             display: flex;
             max-width: 500px;
@@ -100,7 +327,7 @@
             padding: 8px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-
+        
         .trace-input {
             flex: 1;
             padding: 1rem 1.5rem;
@@ -109,9 +336,9 @@
             font-size: 1rem;
             outline: none;
         }
-
+        
         .trace-button {
-            background: var(--accent);
+            background: var(--iso-accent);
             color: var(--dark);
             border: none;
             padding: 1rem 2rem;
@@ -120,11 +347,11 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-
+        
         .trace-button:hover {
             background: #E5C158;
         }
-
+        
         /* ISO Certification Badge */
         .iso-badge {
             background: var(--white);
@@ -136,7 +363,7 @@
             text-align: center;
             position: relative;
         }
-
+        
         .iso-badge::before {
             content: 'SISTEM MANAJEMEN MUTU ISO 9001:2015';
             position: absolute;
@@ -150,36 +377,36 @@
             font-size: 0.8rem;
             font-weight: bold;
         }
-
+        
         .iso-logo {
             font-size: 2rem;
             color: #0056B3;
             margin-bottom: 1rem;
         }
-
+        
         /* Kode ISO Display */
         .iso-code {
             background: var(--white);
-            border: 2px solid var(--primary);
+            border: 2px solid var(--iso-primary);
             border-radius: 12px;
             padding: 2rem;
             margin: 2rem auto;
             max-width: 600px;
             text-align: center;
         }
-
+        
         .code-display {
             font-family: 'Courier New', monospace;
             font-size: 1.5rem;
             font-weight: bold;
-            color: var(--primary);
+            color: var(--iso-primary);
             letter-spacing: 2px;
             margin: 1rem 0;
             padding: 1rem;
             background: var(--light);
             border-radius: 8px;
         }
-
+        
         .code-breakdown {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -187,20 +414,20 @@
             margin-top: 1.5rem;
             text-align: left;
         }
-
+        
         .code-item {
             padding: 1rem;
             background: var(--light);
             border-radius: 8px;
-            border-left: 4px solid var(--accent);
+            border-left: 4px solid var(--iso-accent);
         }
-
+        
         .code-item .value {
             font-weight: bold;
-            color: var(--primary);
+            color: var(--iso-primary);
             font-size: 1.1rem;
         }
-
+        
         /* Results Section */
         .results {
             padding: 3rem 1rem;
@@ -208,7 +435,7 @@
             margin: 0 auto;
             display: none;
         }
-
+        
         .batch-info {
             background: white;
             border-radius: 16px;
@@ -216,7 +443,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             margin-bottom: 2rem;
         }
-
+        
         .batch-header {
             display: flex;
             justify-content: space-between;
@@ -225,43 +452,43 @@
             flex-wrap: wrap;
             gap: 1rem;
         }
-
+        
         .batch-code {
             font-size: 1.5rem;
             font-weight: bold;
-            color: var(--primary);
+            color: var(--iso-primary);
         }
-
+        
         .batch-status {
-            background: var(--accent);
+            background: var(--iso-accent);
             color: var(--dark);
             padding: 0.5rem 1rem;
             border-radius: 20px;
             font-weight: 600;
         }
-
+        
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
-
+        
         .info-card {
             background: var(--light);
             padding: 1.5rem;
             border-radius: 12px;
-            border-left: 4px solid var(--primary);
+            border-left: 4px solid var(--iso-primary);
         }
-
+        
         .info-card h3 {
-            color: var(--primary);
+            color: var(--iso-primary);
             margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
-
+        
         /* Barcode Display */
         .barcode-section {
             background: var(--white);
@@ -271,7 +498,7 @@
             text-align: center;
             margin: 2rem 0;
         }
-
+        
         .barcode {
             font-family: 'Libre Barcode 39', monospace;
             font-size: 3rem;
@@ -282,25 +509,25 @@
             border: 1px solid var(--gray);
             border-radius: 8px;
         }
-
+        
         .barcode-text {
             font-family: 'Courier New', monospace;
             font-size: 1.1rem;
             color: var(--dark);
             margin-top: 0.5rem;
         }
-
+        
         /* Journey Timeline */
         .journey-timeline {
             margin-top: 2rem;
         }
-
+        
         .timeline {
             position: relative;
             max-width: 800px;
             margin: 0 auto;
         }
-
+        
         .timeline::before {
             content: '';
             position: absolute;
@@ -308,22 +535,22 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: var(--accent);
+            background: var(--iso-accent);
         }
-
+        
         .timeline-item {
             position: relative;
             margin-bottom: 2rem;
             padding-left: 80px;
         }
-
+        
         .timeline-icon {
             position: absolute;
             left: 15px;
             top: 0;
             width: 30px;
             height: 30px;
-            background: var(--primary);
+            background: var(--iso-primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -331,52 +558,216 @@
             color: white;
             font-weight: bold;
         }
-
+        
         .timeline-content {
             background: white;
             padding: 1.5rem;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-
+        
         .timeline-date {
             color: var(--gray);
             font-size: 0.9rem;
             margin-bottom: 0.5rem;
         }
-
+        
+        /* Founder Section */
+        .founder {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .founder-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+        }
+        
+        .founder-image-content {
+            text-align: center;
+            color: white;
+            padding: 2rem;
+        }
+        
+        .founder-avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: var(--light);
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: var(--primary);
+            border: 5px solid var(--iso-accent);
+        }
+        
+        .founder-info {
+            flex: 1;
+        }
+        
+        .founder-info h3 {
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .founder-title {
+            font-style: italic;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
         /* Footer */
         footer {
-            background: var(--dark);
+            background-color: var(--dark);
             color: white;
-            text-align: center;
-            padding: 2rem 1rem;
-            margin-top: 4rem;
+            padding: 60px 0 20px;
         }
-
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--secondary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .instagram-highlight {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 14px;
+            color: #aaa;
+        }
+        
         .loading {
             text-align: center;
             padding: 2rem;
             display: none;
         }
-
+        
         .spinner {
             border: 4px solid #f3f3f3;
-            border-top: 4px solid var(--primary);
+            border-top: 4px solid var(--iso-primary);
             border-radius: 50%;
             width: 40px;
             height: 40px;
             animation: spin 1s linear infinite;
             margin: 0 auto 1rem;
         }
-
+        
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
+        
         /* Responsive */
         @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links li {
+                margin: 5px 10px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .about-content, .founder {
+                flex-direction: column;
+            }
+            
+            .traceability-steps {
+                flex-direction: column;
+            }
+            
             .batch-header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -389,25 +780,161 @@
             .barcode {
                 font-size: 2rem;
             }
+            
+            .founder-image {
+                height: 350px;
+            }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header -->
+    <!-- Header & Navigation -->
     <header>
-        <nav class="navbar">
-            <div class="logo">
-                <div class="logo-icon">HC</div>
-                <div class="logo-text">Harlur Coffee</div>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-coffee"></i>
+                    <span>Harlur Coffee</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">Tentang Kami</a></li>
+                    <li><a href="#products">Produk</a></li>
+                    <li><a href="#locations">Lokasi</a></li>
+                    <li><a href="#traceability">Traceability</a></li>
+                    <li><a href="#founder">Founder</a></li>
+                </ul>
+            </nav>
+            
+            <div class="hero" id="home">
+                <h1>Harlur Coffee Experience</h1>
+                <p>Nikmati perjalanan biji kopi dari kebun ke cangkir Anda dengan kualitas dan cita rasa terbaik</p>
+                <a href="#traceability" class="btn">Lacak Kopi Anda</a>
             </div>
-        </nav>
+        </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Sistem Traceability Kopi Standar ISO</h1>
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tentang Harlur Coffee</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Harlur Coffee menghadirkan pengalaman kopi premium dengan fokus pada traceability dan kualitas. Setiap biji kopi yang kami sajikan memiliki jejak yang jelas dari petani hingga ke cangkir Anda.</p>
+                    <p>Dengan lokasi strategis di rumah sakit Hermina, kami tidak hanya menyajikan kopi berkualitas tetapi juga memberikan kenyamanan bagi para pengunjung dan staf medis.</p>
+                    <p>Kami percaya bahwa secangkir kopi yang baik dapat membawa kebahagiaan dan energi positif dalam aktivitas sehari-hari.</p>
+                    <a href="#traceability" class="btn" style="margin-top: 20px;">Pelajari Traceability</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Harlur Coffee Interior">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Produk Kami</h2>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1568649929103-28ffbefaca1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Classic Thai Tea">
+                    </div>
+                    <div class="product-info">
+                        <h3>Classic Thai Tea</h3>
+                        <p>Minuman teh Thailand klasik dengan rasa yang autentik dan menyegarkan.</p>
+                        <div class="price">Rp 25.000</div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Kopi Susu Cenghar">
+                    </div>
+                    <div class="product-info">
+                        <h3>Kopi Susu Cenghar</h3>
+                        <p>Perpaduan sempurna antara kopi pilihan dan susu segar dengan rasa yang khas.</p>
+                        <div class="price">Rp 22.000</div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1561047029-3000c68339ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Coffee Latte">
+                    </div>
+                    <div class="product-info">
+                        <h3>Coffee Latte</h3>
+                        <p>Espresso dengan susu steamed yang creamy dan lapisan foam yang sempurna.</p>
+                        <div class="price">Rp 28.000</div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1506619216599-9d16d0903dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Americano">
+                    </div>
+                    <div class="product-info">
+                        <h3>Americano</h3>
+                        <p>Espresso dengan tambahan air panas, memberikan rasa kopi yang kuat dan jelas.</p>
+                        <div class="price">Rp 24.000</div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Matcha">
+                    </div>
+                    <div class="product-info">
+                        <h3>Matcha</h3>
+                        <p>Minuman matcha premium dengan tekstur yang halus dan rasa yang autentik.</p>
+                        <div class="price">Rp 30.000</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Locations Section -->
+    <section id="locations">
+        <div class="container">
+            <div class="section-title">
+                <h2>Lokasi Kami</h2>
+            </div>
+            <div class="location-cards">
+                <div class="location-card">
+                    <div class="location-icon">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <h3>Hermina Arca</h3>
+                    <p>Gedung Padma Lantai 1</p>
+                    <p>Bandung</p>
+                    <p>Jam Operasional: 07.00 - 21.00</p>
+                </div>
+                
+                <div class="location-card">
+                    <div class="location-icon">
+                        <i class="fas fa-clinic-medical"></i>
+                    </div>
+                    <h3>Hermina Soreang</h3>
+                    <p>Poli Padma Lantai 5</p>
+                    <p>Bandung</p>
+                    <p>Jam Operasional: 07.00 - 21.00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ISO Traceability System -->
+    <section id="traceability" class="iso-traceability">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sistem Traceability Kopi Standar ISO</h2>
+            </div>
             <p>Lacak perjalanan kopi dari kebun hingga cangkir dengan sistem ISO terstandarisasi</p>
             <div class="trace-input-container">
                 <input type="text" class="trace-input" placeholder="Masukkan kode batch (contoh: HC-GYO-2305-001)">
@@ -424,85 +951,124 @@
 
     <!-- Results Section -->
     <section class="results" id="results">
-        <!-- ISO Certification Badge -->
-        <div class="iso-badge">
-            <div class="iso-logo">
-                <i class="fas fa-award"></i>
+        <div class="container">
+            <!-- ISO Certification Badge -->
+            <div class="iso-badge">
+                <div class="iso-logo">
+                    <i class="fas fa-award"></i>
+                </div>
+                <h3>Sistem Manajemen Mutu ISO 9001:2015</h3>
+                <p>Proses produksi mengikuti standar internasional untuk konsistensi dan kualitas</p>
             </div>
-            <h3>Sistem Manajemen Mutu ISO 9001:2015</h3>
-            <p>Proses produksi mengikuti standar internasional untuk konsistensi dan kualitas</p>
+
+            <!-- Kode ISO Display -->
+            <div class="iso-code">
+                <h3><i class="fas fa-tags"></i> Kode Traceability ISO</h3>
+                <div class="code-display" id="isoCodeDisplay">HC-GYO-2305-001</div>
+                
+                <div class="code-breakdown" id="codeBreakdown">
+                    <!-- Will be filled by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Barcode Display -->
+            <div class="barcode-section">
+                <h3><i class="fas fa-barcode"></i> Barcode Traceability</h3>
+                <div class="barcode" id="barcodeDisplay">* HCGYO2305001 *</div>
+                <div class="barcode-text" id="barcodeText">HCGYO2305001</div>
+                <p><small>Pindai atau masukkan kode ini untuk traceability lengkap</small></p>
+            </div>
+
+            <!-- Batch Information -->
+            <div class="batch-info">
+                <div class="batch-header">
+                    <div>
+                        <div class="batch-code" id="batchCode">HC-GYO-2305-001</div>
+                        <div id="coffeeName">Kopi Arabika Gayo</div>
+                    </div>
+                    <div class="batch-status" id="batchStatus">Aktif</div>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3><i class="fas fa-map-marker-alt"></i> Asal Usul</h3>
+                        <p id="originInfo">Loading...</p>
+                    </div>
+                    <div class="info-card">
+                        <h3><i class="fas fa-industry"></i> Proses</h3>
+                        <p id="processInfo">Loading...</p>
+                    </div>
+                    <div class="info-card">
+                        <h3><i class="fas fa-calendar"></i> Tanggal Produksi</h3>
+                        <p id="productionDate">Loading...</p>
+                    </div>
+                    <div class="info-card">
+                        <h3><i class="fas fa-hourglass-end"></i> Tanggal Kadaluarsa</h3>
+                        <p id="expiryDate">Loading...</p>
+                    </div>
+                    <div class="info-card">
+                        <h3><i class="fas fa-truck"></i> Supplier</h3>
+                        <p id="supplierInfo">Loading...</p>
+                    </div>
+                    <div class="info-card">
+                        <h3><i class="fas fa-star"></i> Grade Mutu</h3>
+                        <p id="qualityGrade">Loading...</p>
+                    </div>
+                    <div class="info-card">
+                        <h3><i class="fas fa-weight"></i> Berat Bersih</h3>
+                        <p id="netWeight">Loading...</p>
+                    </div>
+                    <div class="info-card">
+                        <h3><i class="fas fa-certificate"></i> Sertifikasi</h3>
+                        <p id="certification">Loading...</p>
+                    </div>
+                </div>
+
+                <!-- Journey Timeline -->
+                <div class="journey-timeline">
+                    <h3 style="margin-bottom: 2rem; color: var(--iso-primary);">
+                        <i class="fas fa-road"></i> Timeline Perjalanan Kopi
+                    </h3>
+                    <div class="timeline" id="timeline">
+                        <!-- Timeline items will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <!-- Kode ISO Display -->
-        <div class="iso-code">
-            <h3><i class="fas fa-tags"></i> Kode Traceability ISO</h3>
-            <div class="code-display" id="isoCodeDisplay">HC-GYO-2305-001</div>
-            
-            <div class="code-breakdown" id="codeBreakdown">
-                <!-- Will be filled by JavaScript -->
+    <!-- Founder Section -->
+    <section id="founder">
+        <div class="container">
+            <div class="section-title">
+                <h2>Founder</h2>
             </div>
-        </div>
-
-        <!-- Barcode Display -->
-        <div class="barcode-section">
-            <h3><i class="fas fa-barcode"></i> Barcode Traceability</h3>
-            <div class="barcode" id="barcodeDisplay">* HCGYO2305001 *</div>
-            <div class="barcode-text" id="barcodeText">HCGYO2305001</div>
-            <p><small>Pindai atau masukkan kode ini untuk traceability lengkap</small></p>
-        </div>
-
-        <!-- Batch Information -->
-        <div class="batch-info">
-            <div class="batch-header">
-                <div>
-                    <div class="batch-code" id="batchCode">HC-GYO-2305-001</div>
-                    <div id="coffeeName">Kopi Arabika Gayo</div>
+            <div class="founder">
+                <div class="founder-image">
+                    <div class="founder-image-content">
+                        <div class="founder-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Muhammad Afnan Nur Fikri S.T</h3>
+                        <p>Founder & CEO Harlur Coffee</p>
+                        <div class="instagram-highlight">
+                            <i class="fab fa-instagram"></i>
+                            <span>@harlurcoffee</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="batch-status" id="batchStatus">Aktif</div>
-            </div>
-            
-            <div class="info-grid">
-                <div class="info-card">
-                    <h3><i class="fas fa-map-marker-alt"></i> Asal Usul</h3>
-                    <p id="originInfo">Loading...</p>
-                </div>
-                <div class="info-card">
-                    <h3><i class="fas fa-industry"></i> Proses</h3>
-                    <p id="processInfo">Loading...</p>
-                </div>
-                <div class="info-card">
-                    <h3><i class="fas fa-calendar"></i> Tanggal Produksi</h3>
-                    <p id="productionDate">Loading...</p>
-                </div>
-                <div class="info-card">
-                    <h3><i class="fas fa-hourglass-end"></i> Tanggal Kadaluarsa</h3>
-                    <p id="expiryDate">Loading...</p>
-                </div>
-                <div class="info-card">
-                    <h3><i class="fas fa-truck"></i> Supplier</h3>
-                    <p id="supplierInfo">Loading...</p>
-                </div>
-                <div class="info-card">
-                    <h3><i class="fas fa-star"></i> Grade Mutu</h3>
-                    <p id="qualityGrade">Loading...</p>
-                </div>
-                <div class="info-card">
-                    <h3><i class="fas fa-weight"></i> Berat Bersih</h3>
-                    <p id="netWeight">Loading...</p>
-                </div>
-                <div class="info-card">
-                    <h3><i class="fas fa-certificate"></i> Sertifikasi</h3>
-                    <p id="certification">Loading...</p>
-                </div>
-            </div>
-
-            <!-- Journey Timeline -->
-            <div class="journey-timeline">
-                <h3 style="margin-bottom: 2rem; color: var(--primary);">
-                    <i class="fas fa-road"></i> Timeline Perjalanan Kopi
-                </h3>
-                <div class="timeline" id="timeline">
-                    <!-- Timeline items will be inserted here by JavaScript -->
+                <div class="founder-info">
+                    <h3>Muhammad Afnan Nur Fikri S.T</h3>
+                    <div class="founder-title">Founder & CEO Harlur Coffee</div>
+                    <p>Dengan latar belakang pendidikan teknik, Afnan membawa pendekatan yang sistematis dan inovatif dalam bisnis kopi. Visinya adalah menciptakan ekosistem kopi yang berkelanjutan dan menguntungkan semua pihak, dari petani hingga konsumen.</p>
+                    <p>Dibawah kepemimpinannya, Harlur Coffee tidak hanya fokus pada kualitas produk tetapi juga pada pengalaman pelanggan dan dampak sosial yang positif bagi komunitas petani kopi.</p>
+                    <p>"Kopi bukan sekadar minuman, tetapi cerita tentang perjalanan, passion, dan dedikasi." - Muhammad Afnan Nur Fikri</p>
+                    
+                    <div style="margin-top: 30px;">
+                        <a href="https://www.instagram.com/harlurcoffee?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="btn">
+                            <i class="fab fa-instagram"></i> Follow Instagram Kami
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -510,7 +1076,53 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Harlur Coffee. Sistem Traceability Standar ISO 9001:2015.</p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Harlur Coffee</h3>
+                    <p>Menghadirkan pengalaman kopi premium dengan sistem traceability yang transparan dari kebun ke cangkir Anda.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/harlurcoffee?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Lokasi</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Hermina Arca, Gd. Padma Lt. 1 Bandung</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Hermina Soreang, Poli Padma Lt. 5 Bandung</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Produk</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Classic Thai Tea</a></li>
+                        <li><a href="#">Kopi Susu Cenghar</a></li>
+                        <li><a href="#">Coffee Latte</a></li>
+                        <li><a href="#">Americano</a></li>
+                        <li><a href="#">Matcha</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Kontak</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-phone"></i> +62 812-3456-7890</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> info@harlurcoffee.com</a></li>
+                        <li><a href="#"><i class="fas fa-globe"></i> www.harlurcoffee.com</a></li>
+                        <li><a href="https://www.instagram.com/harlurcoffee?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fab fa-instagram"></i> @harlurcoffee</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2024 Harlur Coffee. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
     <script>
@@ -778,6 +1390,47 @@
 
         // Pre-fill with sample code for demo
         traceInput.value = 'HC-GYO-2305-001';
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.querySelectorAll('.product-card, .location-card, .step, .about-content, .founder').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
     </script>
 </body>
 </html>
