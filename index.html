@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harlur Coffee - Sistem Traceability Kopi Standar ISO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2D5016;
+            --secondary: #8B4513;
+            --accent: #D4AF37;
+            --light: #F8F5F0;
+            --dark: #1A2A1A;
+            --text: #333333;
+            --white: #FFFFFF;
+            --gray: #6B7280;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: var(--white);
+            padding: 8rem 1rem 4rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .trace-input-container {
+            display: flex;
+            max-width: 500px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .trace-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 8px 0 0 8px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .trace-button {
+            background: var(--accent);
+            color: var(--dark);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .trace-button:hover {
+            background: #E5C158;
+        }
+
+        /* ISO Certification Badge */
+        .iso-badge {
+            background: var(--white);
+            border: 2px solid #0056B3;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+        }
+
+        .iso-badge::before {
+            content: 'SISTEM MANAJEMEN MUTU ISO 9001:2015';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0056B3;
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .iso-logo {
+            font-size: 2rem;
+            color: #0056B3;
+            margin-bottom: 1rem;
+        }
+
+        /* Kode ISO Display */
+        .iso-code {
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .code-display {
+            font-family: 'Courier New', monospace;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            letter-spacing: 2px;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 8px;
+        }
+
+        .code-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+
+        .code-item {
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .code-item .value {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        /* Results Section */
+        .results {
+            padding: 3rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: none;
+        }
+
+        .batch-info {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .batch-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .batch-code {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .batch-status {
+            background: var(--accent);
+            color: var(--dark);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-card {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .info-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Barcode Display */
+        .barcode-section {
+            background: var(--white);
+            border: 2px dashed var(--gray);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .barcode {
+            font-family: 'Libre Barcode 39', monospace;
+            font-size: 3rem;
+            letter-spacing: 2px;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: white;
+            border: 1px solid var(--gray);
+            border-radius: 8px;
+        }
+
+        .barcode-text {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-top: 0.5rem;
+        }
+
+        /* Journey Timeline */
+        .journey-timeline {
+            margin-top: 2rem;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 80px;
+        }
+
+        .timeline-icon {
+            position: absolute;
+            left: 15px;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .timeline-date {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            display: none;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .batch-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .code-display {
+                font-size: 1.2rem;
+            }
+            
+            .barcode {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <div class="logo-icon">HC</div>
+                <div class="logo-text">Harlur Coffee</div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Sistem Traceability Kopi Standar ISO</h1>
+            <p>Lacak perjalanan kopi dari kebun hingga cangkir dengan sistem ISO terstandarisasi</p>
+            <div class="trace-input-container">
+                <input type="text" class="trace-input" placeholder="Masukkan kode batch (contoh: HC-GYO-2305-001)">
+                <button class="trace-button">Lacak Sekarang</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Melacak perjalanan kopi Anda...</p>
+    </div>
+
+    <!-- Results Section -->
+    <section class="results" id="results">
+        <!-- ISO Certification Badge -->
+        <div class="iso-badge">
+            <div class="iso-logo">
+                <i class="fas fa-award"></i>
+            </div>
+            <h3>Sistem Manajemen Mutu ISO 9001:2015</h3>
+            <p>Proses produksi mengikuti standar internasional untuk konsistensi dan kualitas</p>
+        </div>
+
+        <!-- Kode ISO Display -->
+        <div class="iso-code">
+            <h3><i class="fas fa-tags"></i> Kode Traceability ISO</h3>
+            <div class="code-display" id="isoCodeDisplay">HC-GYO-2305-001</div>
+            
+            <div class="code-breakdown" id="codeBreakdown">
+                <!-- Will be filled by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Barcode Display -->
+        <div class="barcode-section">
+            <h3><i class="fas fa-barcode"></i> Barcode Traceability</h3>
+            <div class="barcode" id="barcodeDisplay">* HCGYO2305001 *</div>
+            <div class="barcode-text" id="barcodeText">HCGYO2305001</div>
+            <p><small>Pindai atau masukkan kode ini untuk traceability lengkap</small></p>
+        </div>
+
+        <!-- Batch Information -->
+        <div class="batch-info">
+            <div class="batch-header">
+                <div>
+                    <div class="batch-code" id="batchCode">HC-GYO-2305-001</div>
+                    <div id="coffeeName">Kopi Arabika Gayo</div>
+                </div>
+                <div class="batch-status" id="batchStatus">Aktif</div>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3><i class="fas fa-map-marker-alt"></i> Asal Usul</h3>
+                    <p id="originInfo">Loading...</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-industry"></i> Proses</h3>
+                    <p id="processInfo">Loading...</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-calendar"></i> Tanggal Produksi</h3>
+                    <p id="productionDate">Loading...</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-hourglass-end"></i> Tanggal Kadaluarsa</h3>
+                    <p id="expiryDate">Loading...</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-truck"></i> Supplier</h3>
+                    <p id="supplierInfo">Loading...</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-star"></i> Grade Mutu</h3>
+                    <p id="qualityGrade">Loading...</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-weight"></i> Berat Bersih</h3>
+                    <p id="netWeight">Loading...</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-certificate"></i> Sertifikasi</h3>
+                    <p id="certification">Loading...</p>
+                </div>
+            </div>
+
+            <!-- Journey Timeline -->
+            <div class="journey-timeline">
+                <h3 style="margin-bottom: 2rem; color: var(--primary);">
+                    <i class="fas fa-road"></i> Timeline Perjalanan Kopi
+                </h3>
+                <div class="timeline" id="timeline">
+                    <!-- Timeline items will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Harlur Coffee. Sistem Traceability Standar ISO 9001:2015.</p>
+    </footer>
+
+    <script>
+        // Sample data dengan standar ISO
+        const sampleData = {
+            'HC-GYO-2305-001': {
+                batchCode: 'HC-GYO-2305-001',
+                coffeeName: 'Kopi Arabika Gayo Organic',
+                isoCode: 'HC-GYO-2305-001',
+                barcode: 'HCGYO2305001',
+                origin: 'Dataran Tinggi Gayo, Aceh',
+                productionDate: '2023-05-01',
+                expiryDate: '2024-11-01',
+                supplier: 'PT. Kopi Nusantara Jaya',
+                supplierCode: 'KNJ',
+                status: 'Aktif',
+                process: 'Natural (Kering)',
+                qualityGrade: 'Grade 1 - Premium',
+                netWeight: '250 gram',
+                certification: 'Organic, ISO 9001:2015',
+                farmer: 'Koperasi Petani Kopi Gayo',
+                farmSize: '15 hektar',
+                altitude: '1.200 - 1.600 mdpl',
+                flavorNotes: ['Coklat', 'Rempah', 'Karamel'],
+                journey: [
+                    {
+                        step: 1,
+                        title: 'Panen - Gayo Highlands',
+                        description: 'Pemetikan manual cherry kopi matang optimal',
+                        location: 'Perkebunan Kopi Gayo, Aceh',
+                        date: '2023-03-15',
+                        status: 'completed'
+                    },
+                    {
+                        step: 2,
+                        title: 'Proses Natural',
+                        description: 'Pengeringan alami sinar matahari 21 hari',
+                        location: 'Pabrik Pengolahan PT. KNJ',
+                        date: '2023-04-05',
+                        status: 'completed'
+                    },
+                    {
+                        step: 3,
+                        title: 'Quality Control ISO',
+                        description: 'Pemeriksaan mutu sesuai standar ISO 9001:2015',
+                        location: 'Laboratorium Mutu',
+                        date: '2023-04-25',
+                        status: 'completed'
+                    },
+                    {
+                        step: 4,
+                        title: 'Pemanggangan',
+                        description: 'Roasting medium untuk highlight cita rasa',
+                        location: 'Roastery Harlur Coffee',
+                        date: '2023-05-01',
+                        status: 'completed'
+                    },
+                    {
+                        step: 5,
+                        title: 'Pengemasan ISO',
+                        description: 'Kemasan vakum dengan label traceability lengkap',
+                        location: 'Pabrik Pengemasan',
+                        date: '2023-05-02',
+                        status: 'completed'
+                    },
+                    {
+                        step: 6,
+                        title: 'Distribusi',
+                        description: 'Pengiriman ke retailer dan konsumen',
+                        location: 'Pusat Distribusi',
+                        date: '2023-05-05',
+                        status: 'completed'
+                    }
+                ]
+            },
+            'HC-TRJ-2306-002': {
+                batchCode: 'HC-TRJ-2306-002',
+                coffeeName: 'Kopi Toraja Kalosi',
+                isoCode: 'HC-TRJ-2306-002',
+                barcode: 'HCTRJ2306002',
+                origin: 'Toraja, Sulawesi Selatan',
+                productionDate: '2023-06-02',
+                expiryDate: '2024-12-02',
+                supplier: 'CV. Kopi Toraja Mandiri',
+                supplierCode: 'KTM',
+                status: 'Aktif',
+                process: 'Washed (Basah)',
+                qualityGrade: 'Grade 1 - Premium',
+                netWeight: '500 gram',
+                certification: 'ISO 9001:2015, Indikasi Geografis',
+                farmer: 'Kelompok Tani Toraja',
+                farmSize: '8 hektar',
+                altitude: '1.000 - 1.400 mdpl',
+                flavorNotes: ['Earthy', 'Woody', 'Spicy'],
+                journey: [
+                    {
+                        step: 1,
+                        title: 'Panen - Toraja Highlands',
+                        description: 'Selektif picking cherry kopi matang',
+                        location: 'Perkebunan Toraja',
+                        date: '2023-04-20',
+                        status: 'completed'
+                    },
+                    {
+                        step: 2,
+                        title: 'Proses Basah',
+                        description: 'Fermentasi dan pencucian tradisional',
+                        location: 'Pengolahan Basah CV. KTM',
+                        date: '2023-05-10',
+                        status: 'completed'
+                    }
+                ]
+            }
+        };
+
+        // DOM Elements
+        const traceInput = document.querySelector('.trace-input');
+        const traceButton = document.querySelector('.trace-button');
+        const resultsSection = document.getElementById('results');
+        const loadingSection = document.getElementById('loading');
+        const isoCodeDisplay = document.getElementById('isoCodeDisplay');
+        const codeBreakdown = document.getElementById('codeBreakdown');
+        const barcodeDisplay = document.getElementById('barcodeDisplay');
+        const barcodeText = document.getElementById('barcodeText');
+        const batchCodeElement = document.getElementById('batchCode');
+        const coffeeNameElement = document.getElementById('coffeeName');
+        const originInfoElement = document.getElementById('originInfo');
+        const productionDateElement = document.getElementById('productionDate');
+        const expiryDateElement = document.getElementById('expiryDate');
+        const supplierInfoElement = document.getElementById('supplierInfo');
+        const processInfoElement = document.getElementById('processInfo');
+        const qualityGradeElement = document.getElementById('qualityGrade');
+        const netWeightElement = document.getElementById('netWeight');
+        const certificationElement = document.getElementById('certification');
+        const batchStatusElement = document.getElementById('batchStatus');
+        const timelineElement = document.getElementById('timeline');
+
+        // Trace button event listener
+        traceButton.addEventListener('click', function() {
+            const batchCode = traceInput.value.trim().toUpperCase();
+            
+            if (!batchCode) {
+                alert('Silakan masukkan kode batch');
+                return;
+            }
+
+            traceCoffee(batchCode);
+        });
+
+        // Enter key support
+        traceInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                traceButton.click();
+            }
+        });
+
+        // Main trace function
+        function traceCoffee(batchCode) {
+            // Show loading
+            loadingSection.style.display = 'block';
+            resultsSection.style.display = 'none';
+
+            // Simulate API call delay
+            setTimeout(() => {
+                const batchData = sampleData[batchCode];
+                
+                if (batchData) {
+                    displayBatchData(batchData);
+                } else {
+                    alert('Kode batch tidak ditemukan. Coba: HC-GYO-2305-001 atau HC-TRJ-2306-002');
+                    loadingSection.style.display = 'none';
+                }
+            }, 1000);
+        }
+
+        // Display batch data in UI
+        function displayBatchData(data) {
+            // Update basic info
+            batchCodeElement.textContent = data.batchCode;
+            coffeeNameElement.textContent = data.coffeeName;
+            isoCodeDisplay.textContent = data.isoCode;
+            originInfoElement.textContent = data.origin;
+            productionDateElement.textContent = formatDate(data.productionDate);
+            expiryDateElement.textContent = formatDate(data.expiryDate);
+            supplierInfoElement.textContent = data.supplier;
+            processInfoElement.textContent = data.process;
+            qualityGradeElement.textContent = data.qualityGrade;
+            netWeightElement.textContent = data.netWeight;
+            certificationElement.textContent = data.certification;
+            batchStatusElement.textContent = data.status;
+
+            // Update barcode
+            barcodeDisplay.textContent = `* ${data.barcode} *`;
+            barcodeText.textContent = data.barcode;
+
+            // Update code breakdown
+            updateCodeBreakdown(data.batchCode);
+
+            // Update timeline
+            updateTimeline(data.journey);
+
+            // Hide loading, show results
+            loadingSection.style.display = 'none';
+            resultsSection.style.display = 'block';
+
+            // Scroll to results
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Update code breakdown
+        function updateCodeBreakdown(batchCode) {
+            const parts = batchCode.split('-');
+            
+            codeBreakdown.innerHTML = `
+                <div class="code-item">
+                    <strong>Perusahaan</strong>
+                    <div class="value">${parts[0]}</div>
+                    <small>Harlur Coffee</small>
+                </div>
+                <div class="code-item">
+                    <strong>Region</strong>
+                    <div class="value">${parts[1]}</div>
+                    <small>${parts[1] === 'GYO' ? 'Gayo, Aceh' : 'Toraja, Sulawesi'}</small>
+                </div>
+                <div class="code-item">
+                    <strong>Periode Produksi</strong>
+                    <div class="value">${parts[2]}</div>
+                    <small>Tahun ${parts[2].substring(0,2)} Bulan ${parts[2].substring(2,4)}</small>
+                </div>
+                <div class="code-item">
+                    <strong>Nomor Batch</strong>
+                    <div class="value">${parts[3]}</div>
+                    <small>Urutan produksi</small>
+                </div>
+            `;
+        }
+
+        // Update timeline with journey data
+        function updateTimeline(journey) {
+            timelineElement.innerHTML = '';
+            
+            journey.forEach((step, index) => {
+                const timelineItem = document.createElement('div');
+                timelineItem.className = 'timeline-item';
+                
+                timelineItem.innerHTML = `
+                    <div class="timeline-icon">${step.step}</div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">${formatDate(step.date)}</div>
+                        <h4>${step.title}</h4>
+                        <p>${step.description}</p>
+                        <small><i class="fas fa-map-marker-alt"></i> ${step.location}</small>
+                    </div>
+                `;
+                
+                timelineElement.appendChild(timelineItem);
+            });
+        }
+
+        // Format date function
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('id-ID', options);
+        }
+
+        // Pre-fill with sample code for demo
+        traceInput.value = 'HC-GYO-2305-001';
+    </script>
+</body>
+</html>
